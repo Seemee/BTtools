@@ -1,4 +1,3 @@
-from IPython.core.display import display, HTML
 import gzip
 import math
 from pathlib import Path
