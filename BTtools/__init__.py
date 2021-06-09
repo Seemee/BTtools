@@ -32,6 +32,7 @@ class BTtools:
                 if item!='0':
                     moves.append(int(item)-1)
         return moves
+  
     
     def process(self,problemSelect,ignoreShapes):
         voxelCount={}
@@ -332,3 +333,4 @@ burr_plate([
             f.write(newXml)
             f.close()
 
+bt=BTtools()
