@@ -4,10 +4,7 @@ from pathlib import Path
 from lxml import objectify
 from lxml import etree
 import copy
-import numpy as np 
-
-
-display(HTML("<style>.container { width:100% !important; }</style>"))
+import numpy as np
 
 class BTtools:
     def __init__(self, filename):
