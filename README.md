@@ -1,2 +1,2 @@
 # BTtools
-Tools for processing Burrtools xmpuzzle files for Python
+Tools for processing Burrtools xmpuzzle files in Python
