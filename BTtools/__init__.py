@@ -6,6 +6,9 @@ from lxml import etree
 import copy
 import numpy as np 
 
+
+display(HTML("<style>.container { width:100% !important; }</style>"))
+
 class BTtools:
     def __init__(self, filename):
         self.filename = filename
@@ -32,7 +35,6 @@ class BTtools:
                 if item!='0':
                     moves.append(int(item)-1)
         return moves
-  
     
     def process(self,problemSelect,ignoreShapes):
         voxelCount={}
@@ -197,8 +199,9 @@ class BTtools:
     
     def createParts(self,problemSelect):
         obj=self.obj
-        voxel=list(str(obj.shapes.voxel[problemSelect-1]))
-        identities=sorted(list(set(voxel)))
+        prob=problemSelect-1
+        string=str(obj.shapes.voxel[prob])
+        identities=sorted(list(set(list(string))))
         for i,id in enumerate(identities):
             if id.isdigit() and int(id)>0 and int(id)<=9:
                 identities[i]='#'+identities[i]
@@ -332,5 +335,3 @@ burr_plate([
         with gzip.open(dst_filename, 'wb') as f:
             f.write(newXml)
             f.close()
-
-bt=BTtools()
