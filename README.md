@@ -6,7 +6,7 @@ Install:<br/>
 
 Basic example:<br/>
 from BTtools import BTtools<br/>
-BT=BTtools([filename.xmpuzzle])<br/>
+BT=BTtools(filename.xmpuzzle)<br/>
 BT.dump(BT.obj.shapes)<br/>
 
 An example to convert xmpuzzle files to Puzzlecad/Openscad in Colab:
