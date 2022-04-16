@@ -18,10 +18,9 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["lxml"]
+    install_requires=["exactcover","lxml","gzip","pathLib","numpy","copy","re","glob"]
 )
