@@ -22,5 +22,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["exactcover","lxml","pathLib","numpy","re","glob"]
+    install_requires=["exactcover","lxml","pathLib","numpy","glob"]
 )
