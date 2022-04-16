@@ -11,7 +11,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.0')
+        print('Burrtools Tools v6.1')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -370,16 +370,19 @@ class BTtools:
         resultId=int(problem.result.get('id'))
         shapeIndices=[resultId+1]
         shapeCounts=[1]
-        solutions,shapeDict=self.process(problemSelect,[],False)
         if analyze:
+            solutions,shapeDict=self.process(problemSelect,[],False)
             for k,v in shapeDict.items():
                 if v['frequency']>0:
                     shapeIndices.append(k)
                     shapeCounts.append(v['maxUse'])
         else:
-            for k,v in shapeDict.items():
-                shapeIndices.append(k)
-        #newshapeIndices=[id for id in range(1,len(shapeIndices)+2,1)]
+            shapeIndices=self.getShapeIndices(problem)
+            uniqueShapes=set(shapeIndices)
+            for shape in uniqueShapes:
+                shapeCounts.append(shapeIndices.count(shape))
+            shapeIndices=[resultId+1]+list(uniqueShapes)
+
         fmt='Shapes found: S'+'S'.join(['%d, ']*len(shapeIndices))
         print(fmt[0:-2] % tuple(shapeIndices))
         fmt='Shapes selected: S'+'S'.join(['%d, ']*(len(shapeIndices)-start+1))
