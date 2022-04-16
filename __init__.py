@@ -412,7 +412,7 @@ $burr_inset = %.1f;\n$burr_bevel = %.1f;\n$unit_beveled = %s;\n$joint_inset = %.
             normArr,ofs=BTtools.normalizeArray(arr)
             scaledArr=normArr[0::downScale,0::downScale,0::downScale].copy()
             if analyze:
-                shapeCount=shapeCounts[no+start-1] if copies else 1
+                shapeCount=shapeCounts[no+start-1]
             else:
                 shapeCount=1
             for i in range(shapeCount):
