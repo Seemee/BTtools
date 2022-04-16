@@ -363,7 +363,7 @@ class BTtools:
                 break
         return solCount==1
 
-    def bt2pcad(self,problemSelect,start,scale,analyze=True,options=(2.2,15,'true',0.2,0.5,'false',0.07,240,3)):
+    def bt2pcad(self,problemSelect,start,scale,copies,analyze=True,options=(2.2,15,'true',0.2,0.5,'false',0.07,240,3)):
         start=start+1
         obj=self.obj
         problem=self.obj.problems.problem[problemSelect-1]
