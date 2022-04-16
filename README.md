@@ -9,4 +9,5 @@ Use:
 
 from BTtools import BTtools
 
-BT=Bttools([<filename>.xmpuzzle])
+BT=BTtools([filename.xmpuzzle])
+BT.dump(BT.obj)
