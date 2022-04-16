@@ -7,4 +7,4 @@ Install:<br/>
 Use:<br/>
 from BTtools import BTtools<br/>
 BT=BTtools([filename.xmpuzzle])<br/>
-BT.dump(BT.obj)<br/>
+BT.dump(BT.obj.shapes)<br/>
