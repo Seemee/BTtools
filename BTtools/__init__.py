@@ -12,7 +12,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.32')
+        print('Burrtools Tools v6.33')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -317,7 +317,7 @@ class BTtools:
             propositions[target]={targetTcoords:{'bound':targetBound,'secondary':secondaryTcoords}}
         # Rotate and shift
         for shapeNo in shapesSelect:
-            shapeArr=self.getArray(BTtools.obj.shapes.voxel[shapeNo-1])
+            shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
             arr,ofs=self.normalizeArray(shapeArr)
             shapeCoords=self.getAllCoordinates(arr)
             voxelCount=len(shapeCoords[0])
