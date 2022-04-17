@@ -12,7 +12,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.2')
+        print('Burrtools Tools v6.3')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
