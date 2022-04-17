@@ -12,7 +12,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.3')
+        print('Burrtools Tools v6.31')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -168,7 +168,35 @@ class BTtools:
             html+="</table>"
             display(HTML('<style>td,th {font-size:100%;}</style>'+html))
         return solutions,shapeDict
-
+    
+    @staticmethod
+    def bestSolution(solutions):
+        minSols=math.inf
+        maxSols=0
+        minMoveRange=math.inf
+        maxMoveRange=0
+        for k,v in solutions.items():
+            if v['sols']<minSols:
+                minSols=v['sols']
+                minAsmNum=v['asmNum']
+                moves=v['moves']
+                minAssembly=k
+                totMoves=v['totMoves']
+            elif v['sols']==minSols: # and v['totMoves']<maxMoves:
+                minAsmNum=v['asmNum']
+                moves=v['moves']
+                minAssembly=k
+                totMoves=v['totMoves']
+            if v['sols']>maxSols:
+                maxSols=v['sols']
+            if v['totMoves']<minMoveRange:
+                minMoveRange=v['totMoves']
+            if v['totMoves']>maxMoveRange:
+                maxMoveRange=v['totMoves']
+                
+        bs= {'minSols':minSols,'maxSols':maxSols,'totMoves':totMoves,'moves':moves,'minAssembly':minAssembly,'minAsmNum':minAsmNum,'minMoveRange':minMoveRange,'maxMoveRange':maxMoveRange}
+        ret = {k: v for k, v in bs.items()}
+        return ret
     @staticmethod
     def getShapeIndices(problem):
         shapeIndices=[]
