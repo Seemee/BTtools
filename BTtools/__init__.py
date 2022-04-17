@@ -1,4 +1,5 @@
 Z,Y,X=0,1,2
+from IPython.core.display import display, HTML
 import exactcover
 import gzip
 import math
