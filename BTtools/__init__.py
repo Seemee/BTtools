@@ -12,7 +12,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.33')
+        print('Burrtools Tools v6.34')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -197,6 +197,31 @@ class BTtools:
         bs= {'minSols':minSols,'maxSols':maxSols,'totMoves':totMoves,'moves':moves,'minAssembly':minAssembly,'minAsmNum':minAsmNum,'minMoveRange':minMoveRange,'maxMoveRange':maxMoveRange}
         ret = {k: v for k, v in bs.items()}
         return ret
+
+    @staticmethod
+    def createNewProblem(shapeIds,shapeDict,problem,name=''):
+        newProblem=etree.Element("problem")
+        newProblem.set('name',name)
+        shapes=etree.SubElement(newProblem, 'shapes')
+        quantities={}
+        for shapeId in shapeIds:
+            if shapeId not in quantities:
+                quantities[shapeId]=0
+            quantities[shapeId]+=1
+        for shapeId,quantity in quantities.items():
+            shape=etree.SubElement(shapes, 'shape')
+            shape.set('id',str(shapeId-1))
+            shape.set('min',str(quantity))
+            shape.set('max',str(quantity))
+            shape.set('group',str(shapeDict[shapeId]['group']))
+            shapes.append(shape)
+        newProblem.append(shapes)
+        result=copy.deepcopy(problem.result)
+        newProblem.append(result)
+        bitmap=copy.deepcopy(problem.bitmap)
+        newProblem.append(bitmap)
+        return newProblem
+  
     @staticmethod
     def getShapeIndices(problem):
         shapeIndices=[]
