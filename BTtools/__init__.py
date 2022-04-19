@@ -407,16 +407,6 @@ class BTtools:
                 m.append([shape]+[ pos for pos in k])
         return m
 
-    @staticmethod
-    def hasUniqueSol(propositions,shapes,secondary=[]):
-        m=BTtools.convertToMatrix(propositions,shapes)
-        solCount=0
-        for _ in exactcover.Coverings(m,secondary):
-            solCount+=1
-            if solCount>1:
-                break
-        return solCount==1
-
     def bt2pcad(self,problemSelect,start,scale=1/1,analyze=True,options=(2.2,15,'true',0.2,0.5,'false',0.07,240,3)):
         start=start+1
         obj=self.obj
