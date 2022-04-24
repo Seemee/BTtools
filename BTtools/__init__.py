@@ -10,9 +10,10 @@ import numpy as np
 import copy
 import re
 import glob
+import os
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.36')
+        print('Burrtools Tools v6.37')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
