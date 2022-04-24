@@ -1,5 +1,5 @@
 Z,Y,X=0,1,2
-from IPython.core.display import display, HTML
+#from IPython.core.display import display, HTML
 #import exactcover
 import gzip
 import math
@@ -12,7 +12,7 @@ import re
 import glob
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.35')
+        print('Burrtools Tools v6.36')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
