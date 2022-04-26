@@ -116,7 +116,7 @@ class BTtools:
                 
                 arr=self.getArray(voxel)
                 coords=self.getAllCoordinates(arr)
-                length=coords[0]
+                length=len(coords[0])
                 planar=False
                 if coords[Z].tolist().count(coords[Z][0]) == length or coords[Y].tolist().count(coords[Y][0]) == length or coords[X].tolist().count(coords[X][0]) == length:
                     planar=True                
