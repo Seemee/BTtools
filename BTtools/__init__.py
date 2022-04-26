@@ -13,7 +13,7 @@ import glob
 import os
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.37')
+        print('Burrtools Tools v6.38')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -110,10 +110,17 @@ class BTtools:
                 group=shape.get('group')
                 if group==None:
                     group=0
-                #print(shape.get('id'),shape.get('max'))
                 shapeId=int(shape.get('id'))+1
-                name=self.obj.shapes.voxel[shapeId-1].get('name')
-                shapeDict[shapeId]={'name':name,'group':group,'frequency':0,'maxUse':0,'voxels':voxelCount[shapeId],'min':minCount,'max':maxCount}
+                voxel=self.obj.shapes.voxel[shapeId-1]
+                name=voxel.get('name')
+                
+                arr=self.getArray(voxel)
+                coords=self.getAllCoordinates(arr)
+                lenght=coords[0]
+                planar=False
+                if coords[Z].count(coords[Z][0]) == length or coords[Y].count(coords[Y][0]) == length or coords[X].count(coords[X][0]) == length 
+                    planar=True                
+                shapeDict[shapeId]={'name':name,'group':group,'frequency':0,'maxUse':0,'voxels':voxelCount[shapeId],'min':minCount,'max':maxCount, 'planar':planar}
                 for _ in range(int(maxCount)):
                     shapeIndices.append(shapeId)
         solutions={}
@@ -164,8 +171,8 @@ class BTtools:
             html="""<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script><table class="sortable"><caption>
             <h2>Shape Use</h2></caption><tr><th>Name</th><th>Shape</th><th>Voxels</th><th>Min</th><th>Max</th><th>Max use</th><th>Frequency</th></tr>"""
             for k,v in shapeDict.items():
-                html+="""<tr class="item"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\</tr>
-                """%('' if v['name']==None else v['name'],str(k),v['voxels'],v['min'],v['max'],v['maxUse'],v['frequency'])
+                html+="""<tr class="item"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\</tr>
+                """%('' if v['name']==None else v['name'],str(k),v['voxels'],v['min'],v['max'],v['maxUse'],v['frequency'],v['planar'])
             html+="</table>"
             display(HTML('<style>td,th {font-size:100%;}</style>'+html))
         return solutions,shapeDict
