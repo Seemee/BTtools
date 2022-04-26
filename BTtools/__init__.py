@@ -118,7 +118,7 @@ class BTtools:
                 coords=self.getAllCoordinates(arr)
                 lenght=coords[0]
                 planar=False
-                if coords[Z].count(coords[Z][0]) == length or coords[Y].count(coords[Y][0]) == length or coords[X].count(coords[X][0]) == length 
+                if coords[Z].count(coords[Z][0]) == length or coords[Y].count(coords[Y][0]) == length or coords[X].count(coords[X][0]) == length:
                     planar=True                
                 shapeDict[shapeId]={'name':name,'group':group,'frequency':0,'maxUse':0,'voxels':voxelCount[shapeId],'min':minCount,'max':maxCount, 'planar':planar}
                 for _ in range(int(maxCount)):
