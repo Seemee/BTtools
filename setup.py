@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="BTtools",
-    version="V6.37",
+    version="V6.38",
     author="Symen Hovinga",
     author_email="itsfull@hotmail.com",
     description="Tools for processing Burrtools xmpuzzle files in Python",
