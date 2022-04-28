@@ -13,7 +13,7 @@ import glob
 import os
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.39')
+        print('Burrtools Tools v6.40')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -167,14 +167,6 @@ class BTtools:
             else:
                 solutions[sol]={'sols':1, 'asmNum':asmNum,'totMoves':totMoves,'moves':moves}
         print()
-        if verbose:
-            html="""<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script><table class="sortable"><caption>
-            <h2>Shape Use</h2></caption><tr><th>Name</th><th>Shape</th><th>Voxels</th><th>Min</th><th>Max</th><th>Max use</th><th>Frequency</th></tr>"""
-            for k,v in shapeDict.items():
-                html+="""<tr class="item"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\</tr>
-                """%('' if v['name']==None else v['name'],str(k),v['voxels'],v['min'],v['max'],v['maxUse'],v['frequency'],v['planar'])
-            html+="</table>"
-            display(HTML('<style>td,th {font-size:100%;}</style>'+html))
         return solutions,shapeDict
     
     @staticmethod
