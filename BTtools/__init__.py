@@ -13,7 +13,7 @@ import glob
 import os
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.38')
+        print('Burrtools Tools v6.39')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -206,6 +206,27 @@ class BTtools:
         ret = {k: v for k, v in bs.items()}
         return ret
 
+    def copyProblem(self,problemSelect):
+        problem = copy.deepcopy(self.obj.problems.problem[problemSelect-1])
+        self.obj.problems.append(problem)
+        return len(self.obj.problems.problem)
+
+    def createParts(self,problemSelect):
+        voxel=self.obj.shapes.voxel[problemSelect-1]
+        identities=self.getIdentities(voxel)
+        print('Found %d identities: %s'%(len(identities),', '.join(identities)))
+        for no,id in enumerate(identities):
+            tmpString=copy.deepcopy(voxel.text)
+            for i in identities:
+                if i!=id:
+                    tmpString=tmpString.replace(i,'_')
+            newPart=etree.Element("voxel")
+            newPart.text=tmpString
+            for k,v in voxel.attrib.items():
+                newPart.set(k,v)
+            newPart.set('name','part '+str(no+1))
+            self.obj.shapes.append(newPart)
+        
     @staticmethod
     def createNewProblem(shapeIds,shapeDict,problem,name=''):
         newProblem=etree.Element("problem")
@@ -229,7 +250,25 @@ class BTtools:
         bitmap=copy.deepcopy(problem.bitmap)
         newProblem.append(bitmap)
         return newProblem
-  
+
+    def isolate(self,problemSelect):
+        problem=self.obj.problems.problem[problemSelect-1]
+        shapeIndices=[]
+        for shape in problem.shapes.shape:
+            shapeIndices.append(int(shape.get('id'))+1)
+        newshapeIndices=[id for id in range(1,len(shapeIndices)+2)]
+        resultId=int(problem.result.get('id'))
+        print('Original shapes: S%s'%(', S'.join(map(str,[resultId]+shapeIndices))))
+        print('New shape id\'s: S%s'%(', S'.join(map(str,newshapeIndices))))
+        voxel=[self.obj.shapes.voxel[resultId]]
+        voxel[0].set('name','(P%d target shape)'%problemSelect)
+        for i,id in enumerate(shapeIndices):
+            problem.shapes.shape[i].set('id',str(i+1))
+            voxel.append(BT.obj.shapes.voxel[id-1])
+        problem.result.set('id','0')
+        self.obj.problems.problem=[problem]
+        self.obj.shapes.voxel=voxel
+
     @staticmethod
     def getShapeIndices(problem):
         shapeIndices=[]
