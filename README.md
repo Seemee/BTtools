@@ -2,7 +2,7 @@
 Tools for processing Burrtools xmpuzzle files in Python.
 
 Install:<br/>
-!pip install git+https://github.com/Seemee/BTtools.git#egg=BTtools
+pip install git+https://github.com/Seemee/BTtools.git#egg=BTtools
 
 Basic example:<br/>
 from BTtools import BTtools<br/>
