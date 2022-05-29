@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.45')
+        print('Burrtools Tools v6.46')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -34,7 +34,8 @@ class BTtools:
             self.obj = objectify.fromstring(xml)
             return
         xml=''
-        if IN_COLAB:            upload = files.upload()
+        if IN_COLAB:            
+            upload = files.upload()
             self.filename,fileBuffer=next(iter(upload.items()))
             xml=gzip.decompress(fileBuffer)
         else:
