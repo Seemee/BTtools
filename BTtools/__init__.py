@@ -18,7 +18,8 @@ if IN_COLAB:
     from google.colab import files
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.44')
+        global files
+        print('Burrtools Tools v6.45')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -33,8 +34,7 @@ class BTtools:
             self.obj = objectify.fromstring(xml)
             return
         xml=''
-        if IN_COLAB:
-            upload = files.upload()
+        if IN_COLAB:            upload = files.upload()
             self.filename,fileBuffer=next(iter(upload.items()))
             xml=gzip.decompress(fileBuffer)
         else:
@@ -530,6 +530,7 @@ $burr_inset = %.1f;\n$burr_bevel = %.1f;\n$unit_beveled = %s;\n$joint_inset = %.
             if pos[X] < (shape[X]-1):
                 BTtools.floodFill( arr, ( pos[Z],   pos[Y],   pos[X]+1 ), oldVal, newVal )
     def write(self,extension=''):
+        global files
         newXml = etree.tostring(self.obj)
         p=Path(self.filename)
         if extension != '':
