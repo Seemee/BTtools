@@ -13,12 +13,12 @@ import glob
 import os
 import sys
 IN_COLAB = 'google.colab' in sys.modules
-files=none
+files=None
 if IN_COLAB:
     from google.colab import files
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.43')
+        print('Burrtools Tools v6.44')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
