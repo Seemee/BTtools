@@ -11,9 +11,14 @@ import copy
 import re
 import glob
 import os
+import sys
+IN_COLAB = 'google.colab' in sys.modules
+if IN_COLAB:
+    from google.colab import files
+
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.40')
+        print('Burrtools Tools v6.41')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -28,12 +33,11 @@ class BTtools:
             self.obj = objectify.fromstring(xml)
             return
         xml=''
-        try:
-            from google.colab import files
+        if IN_COLAB:
             upload = files.upload()
             self.filename,fileBuffer=next(iter(upload.items()))
             xml=gzip.decompress(fileBuffer)
-        except:
+        else:
             self.filename = filename
             if os.path.isdir(filename): #if direcorty is give find latest file
                 search_dir = filename
@@ -535,8 +539,7 @@ $burr_inset = %.1f;\n$burr_bevel = %.1f;\n$unit_beveled = %s;\n$joint_inset = %.
         with gzip.open(dst_filename, 'wb') as f:
             f.write(newXml)
             f.close()
-        try: 
-            from google.colab import files
+        if IN_COLAB:
             if self.filename=='' or self.filename==None:
                 self.filename='tmp.xmpuzzle'
             files.download(dst_filename)
