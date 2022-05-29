@@ -18,7 +18,7 @@ if IN_COLAB:
 
 class BTtools:
     def __init__(self, filename=None):
-        print('Burrtools Tools v6.41')
+        print('Burrtools Tools v6.42')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -543,5 +543,3 @@ $burr_inset = %.1f;\n$burr_bevel = %.1f;\n$unit_beveled = %s;\n$joint_inset = %.
             if self.filename=='' or self.filename==None:
                 self.filename='tmp.xmpuzzle'
             files.download(dst_filename)
-        except:
-            pass
