@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.47')
+        print('Burrtools Tools v6.48')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -451,7 +451,7 @@ class BTtools:
                 m.append([shape]+[ pos for pos in k])
         return m
 
-    def bt2pcad(self,problemSelect,start,scale=1/1,analyze=True,options=(2.2,15,'true',0.2,0.5,'false',0.07,240,3)):
+    def bt2pcad(self,problemSelect,start,scale=1/1,analyze=True):
         start=start+1
         obj=self.obj
         problem=self.obj.problems.problem[problemSelect-1]
@@ -487,12 +487,7 @@ class BTtools:
         problem.result.set('id','0')
         obj.problems.problem=[problem]
         obj.shapes.voxel=voxel
-        params=(problemSelect,self.filename,'' if scale==1 else 'at scale %.2f'%scale)+options
-        #print(params)
-        pcad="""/* BT-Tools Puzzlecad Converter\nThis model was generated from P%d of the Burr-Tools file: %s %s\nFeel free to make changes to the model or parameters. 
-*/\ninclude <../puzzlecad.scad>\nrequire_puzzlecad_version("%g");\n\n$burr_scale = %g;\t//  or [15,15,7.5];\n$auto_layout = %s;\t// (or false for above scale array with overhanging parts
-$burr_inset = %.1f;\n$burr_bevel = %.1f;\n$unit_beveled = %s;\n$joint_inset = %.2f;\n$plate_width = %d;\n$plate_sep = %d;
-\nburr_plate(\n[\n""" % params
+        pcad=''
         for no,voxel in enumerate(obj.shapes.voxel[start-1:]):
             name=voxel.get('name')
             if name==None:
