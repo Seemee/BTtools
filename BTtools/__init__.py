@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.48')
+        print('Burrtools Tools v6.49')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -487,7 +487,7 @@ class BTtools:
         problem.result.set('id','0')
         obj.problems.problem=[problem]
         obj.shapes.voxel=voxel
-        pcad=''
+        pcad='burr_plate(\n['
         for no,voxel in enumerate(obj.shapes.voxel[start-1:]):
             name=voxel.get('name')
             if name==None:
