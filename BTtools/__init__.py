@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.50')
+        print('Burrtools Tools v6.51')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -116,7 +116,7 @@ class BTtools:
                 if group==None:
                     if hasattr(shape,'group'):
                         group=shape.group.get('group')
-                    else
+                    else:
                         group=0
                 shapeId=int(shape.get('id'))+1
                 voxel=self.obj.shapes.voxel[shapeId-1]
