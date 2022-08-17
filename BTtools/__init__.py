@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.51')
+        print('Burrtools Tools v6.52')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -469,7 +469,7 @@ class BTtools:
                     shapeCounts.append(v['maxUse'])
         else:
             shapeIndices=self.getShapeIndices(problem)
-            uniqueShapes=set(shapeIndices)
+            uniqueShapes=sorted(list(set(shapeIndices)))
             for shape in uniqueShapes:
                 shapeCounts.append(shapeIndices.count(shape))
             shapeIndices=[resultId+1]+list(uniqueShapes)
