@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.52')
+        print('Burrtools Tools v6.53')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -386,7 +386,7 @@ class BTtools:
             targetBound=(targetCoords[0].max(),targetCoords[1].max(),targetCoords[2].max())
             targetTcoords = tuple( tuple( coord.tolist() ) for coord in targetCoords.T )
             secondaryTcoords = tuple( tuple( coord.tolist() ) for coord in secondaryCoords.T )
-            propositions[target]={targetTcoords:{'bound':targetBound,'secondary':secondaryTcoords}}
+            propositions[target]={targetTcoords:{'bound':targetBound,'secondary':secondaryTcoords,'btString':'0 0 0 0'}}
         # Rotate and shift
         for shapeNo in shapesSelect:
             shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
