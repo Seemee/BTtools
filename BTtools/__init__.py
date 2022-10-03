@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.53')
+        print('Burrtools Tools v6.54')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -445,6 +445,7 @@ class BTtools:
                 print('Optimize for symmetry: S%s'%maxPropNo,'reduced from',maxPropLength, 'props to',len(anchored))
             oPropositions[maxPropNo]=anchored
         return oPropositions
+    
     # Convert propositions to matrix 
     @staticmethod
     def convertToMatrix(propositions,shapesSelect):
@@ -453,6 +454,31 @@ class BTtools:
             for k in propositions[shape]:
                 m.append([shape]+[ pos for pos in k])
         return m
+    
+    # Convert propositions to Burrtool codes and coordinates for given problem
+    def getBTprops(self,problem,ss=None):
+        shapes=self.getShapeIndices(problem)
+        target=int(problem.result.get('id'))+1
+        propositions=self.getPropositions(set(shapes),target)
+        if ss==None:
+            targetCoords=next(iter(propositions[target]))
+            ss=[(0,0,0),tuple(np.array(propositions[target][targetCoords]['bound'])+1)]
+        else:
+            targetCoords=[]
+            for z in range(ss[0][Z],ss[1][Z]):
+                for y in range(ss[0][Y],ss[1][Y]):
+                    for x in range(ss[0][X],ss[1][X]):
+                        targetCoords.append((z,y,x))
+        iProp={}
+        for s in [target]+shapes:
+            iProp[s]={}
+            for coords in propositions[s]:
+                slicedCoords=[]
+                for pos in coords:
+                    if pos in targetCoords:
+                        slicedCoords.append( ( pos[Z]-ss[0][Z], pos[Y]-ss[0][Y], pos[X]-ss[0][X] ) )
+                iProp[s][propositions[s][coords]['btString']]=slicedCoords
+        return iProp
 
     def bt2pcad(self,problemSelect,start,scale=1/1,analyze=True):
         start=start+1
