@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.54')
+        print('Burrtools Tools v6.55')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -460,11 +460,11 @@ class BTtools:
         shapes=self.getShapeIndices(problem)
         target=int(problem.result.get('id'))+1
         propositions=self.getPropositions(set(shapes),target)
+        targetCoords=[]
         if ss==None:
             targetCoords=next(iter(propositions[target]))
             ss=[(0,0,0),tuple(np.array(propositions[target][targetCoords]['bound'])+1)]
         else:
-            targetCoords=[]
             for z in range(ss[0][Z],ss[1][Z]):
                 for y in range(ss[0][Y],ss[1][Y]):
                     for x in range(ss[0][X],ss[1][X]):
