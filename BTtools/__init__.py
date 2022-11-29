@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.58')
+        print('Burrtools Tools v6.59')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -385,16 +385,16 @@ class BTtools:
 
     def getPropositions(self,shapesSelect,target,shift=True,rotations=range(24)):
         propositions={}
-        if shift:
-            # Get target and secondary coordinaties
-            targetArr=self.getArray(self.obj.shapes.voxel[target-1])
-            normalizedArr,targetOffset=self.normalizeArray(targetArr)
-            targetCoords=self.getAllCoordinates(normalizedArr)
-            secondaryCoords=self.getSecondaryCoordinates(normalizedArr)
-            targetBound=(targetCoords[0].max(),targetCoords[1].max(),targetCoords[2].max())
-            targetTcoords = tuple( tuple( coord.tolist() ) for coord in targetCoords.T )
-            secondaryTcoords = tuple( tuple( coord.tolist() ) for coord in secondaryCoords.T )
-            propositions[target]={targetTcoords:{'bound':targetBound,'secondary':secondaryTcoords,'btString':'0 0 0 0'}}
+        #if shift:
+        # Get target and secondary coordinaties
+        targetArr=self.getArray(self.obj.shapes.voxel[target-1])
+        normalizedArr,targetOffset=self.normalizeArray(targetArr)
+        targetCoords=self.getAllCoordinates(normalizedArr)
+        secondaryCoords=self.getSecondaryCoordinates(normalizedArr)
+        targetBound=(targetCoords[0].max(),targetCoords[1].max(),targetCoords[2].max())
+        targetTcoords = tuple( tuple( coord.tolist() ) for coord in targetCoords.T )
+        secondaryTcoords = tuple( tuple( coord.tolist() ) for coord in secondaryCoords.T )
+        propositions[target]={targetTcoords:{'bound':targetBound,'secondary':secondaryTcoords,'btString':'0 0 0 0'}}
         # Rotate and shift
         for shapeNo in shapesSelect:
             shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
