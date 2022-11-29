@@ -300,9 +300,8 @@ class BTtools:
     @staticmethod
     def createVoxelbyCoordsTuple(shape,coordsTuple,space='_',mark='#'):
         arr=np.full(shape,space,dtype='|S1')
-        arr[tuple(np.array(coords).T)]=mark
-        voxel=BTtools.setArray(arr)
-        return voxel
+        arr[tuple(np.array(coordsTuple).T)]=mark
+        return BTtools.setArray(arr)
     
     @staticmethod
     def setArray(arr):
