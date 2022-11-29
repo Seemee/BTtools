@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.59')
+        print('Burrtools Tools v6.60')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -422,7 +422,8 @@ class BTtools:
                         offset=out[rot][:,-1:].T[0]
                         self.shift(propositions[shapeNo],targetTcoords,targetBound,coords,bound,rot,offset,targetOffset)
                     else:
-                        propositions[shapeNo][TCoords]={'bound':bound,'rot':rot}   
+                        if set(Tcoords).issubset(targetTcoords):
+                            propositions[shapeNo][TCoords]={'bound':bound,'rot':rot}   
                         
         return propositions
     
