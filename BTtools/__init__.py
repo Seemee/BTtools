@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.57')
+        print('Burrtools Tools v6.58')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
