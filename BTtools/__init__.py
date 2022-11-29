@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.56')
+        print('Burrtools Tools v6.57')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -295,7 +295,15 @@ class BTtools:
 
     @staticmethod
     def getIdentities(voxel):    
-        return sorted(list(set(re.findall(r'\#\d*|\+\d*',voxel.text))),reverse=True) 
+        return sorted(list(set(re.findall(r'\#\d*|\+\d*',voxel.text))),reverse=True)
+
+    @staticmethod
+    def createVoxelbyCoordsTuple(shape,coordsTuple,space='_',mark='#'):
+        arr=np.full(shape,space,dtype='|S1')
+        arr[tuple(np.array(coords).T)]=mark
+        voxel=BTtools.setArray(arr)
+        return voxel
+    
     @staticmethod
     def setArray(arr):
         voxel=etree.Element('voxel')
@@ -306,6 +314,7 @@ class BTtools:
         voxel.set('type','0')
         voxel.text=arr.tobytes().decode('utf-8')
         return voxel
+
     @staticmethod
     def getArray(voxel,mark='x',space='.',var='+'):    
         identities=BTtools.getIdentities(voxel)
