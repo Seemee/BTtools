@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.61')
+        print('Burrtools Tools v6.62')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -343,7 +343,19 @@ class BTtools:
         normArr = arr[ minCoords[0]:np.max(coords[0]+1) , minCoords[1]:np.max(coords[1]+1) , minCoords[2]:np.max(coords[2]+1) ]  
         return normArr,minCoords
 
+    @staticmethod
+    def rotate( arr, out, rot ):
+        z, y, x, zf, yf, xf = 0, 1, 2, 3, 4, 5
+        #                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
+        k_idx = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )
 
+        arr[zf] = - arr[ z ]
+        arr[yf] = - arr[ y ]
+        arr[xf] = - arr[ x ]
+        out[z] = arr[ k_idx[rot,z] ]
+        out[y] = arr[ k_idx[rot,y] ]
+        out[x] = arr[ k_idx[rot,x] ]
+        
     @staticmethod
     def rotateAll24( arr, out ):
         #njit #( "void(int32[:,:],int32[:],int32[:,:],int32[:,:,:])" )
@@ -382,6 +394,33 @@ class BTtools:
             newCoords=copy.deepcopy(coords)
             newCoords[axis]+=1
             coords=newCoords
+
+def getSolutionCoords(self,problem,solNo):
+    shapeNumbers=BTtools.getShapeIndices(problem)
+    solution=problem.solutions.solution[solNo]
+    btPosList=np.array(re.findall(r'x|(-?\d+ -?\d+ -?\d+ -?\d+)', solution.assembly.text))
+    x,y,z,rot=0,1,2,3
+    coordDict={}
+    for shapeIndex,btPos in enumerate(btPosList):
+        if btPos!='':
+            pos=list(map(int, btPos.split()))
+            shapeNo=shapeNumbers[shapeIndex]
+            shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
+            shapeCoords=self.getAllCoordinates(shapeArr)
+            voxelCount=len(shapeCoords[0])
+            coords=np.zeros( ( 6, voxelCount ), np.int32 )
+            coords[0:3,:]=shapeCoords[:,:]
+            out=np.zeros( ( 3, voxelCount ), np.int32 )
+            rotate(coords,out,pos[rot])
+            coords=out
+            #coords[Z]+=pos[z]
+            #coords[Y]+=pos[y]
+            #coords[X]+=pos[x]
+            #coords = coords [ :, coords[2].argsort() ]
+            #coords = coords [ :, coords[1].argsort( kind = 'mergesort' ) ]
+            #coords = coords [ :, coords[0].argsort( kind = 'mergesort' ) ]
+            coordDict[shapeIndex]={'coords':coords.T,'offset':np.array([pos[z],pos[y],pos[x]])}
+    return coordDict
 
     def getPropositions(self,shapesSelect,target,shift=True,rotations=range(24)):
         propositions={}
