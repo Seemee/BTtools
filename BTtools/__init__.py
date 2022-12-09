@@ -1,4 +1,7 @@
 Z,Y,X=0,1,2
+#                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
+K_IDX = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )
+
 #from IPython.core.display import display, HTML
 #import exactcover
 import gzip
@@ -19,7 +22,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.66')
+        print('Burrtools Tools v6.67')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -346,23 +349,17 @@ class BTtools:
     @staticmethod
     def rotate( arr, out, rot ):
         z, y, x, zf, yf, xf = 0, 1, 2, 3, 4, 5
-        #                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
-        k_idx = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )
-
         arr[zf] = - arr[ z ]
         arr[yf] = - arr[ y ]
         arr[xf] = - arr[ x ]
-        out[z] = arr[ k_idx[rot,z] ]
-        out[y] = arr[ k_idx[rot,y] ]
-        out[x] = arr[ k_idx[rot,x] ]
+        out[z] = arr[ K_IDX[rot,z] ]
+        out[y] = arr[ K_IDX[rot,y] ]
+        out[x] = arr[ K_IDX[rot,x] ]
         
     @staticmethod
     def rotateAll24( arr, out ):
         #njit #( "void(int32[:,:],int32[:],int32[:,:],int32[:,:,:])" )
         z, y, x, zf, yf, xf = 0, 1, 2, 3, 4, 5
-        #                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
-        k_idx = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )
-
         tmax = arr[z,-2]
         arr[zf] = - arr[ z ] + tmax
         arr[zf,-2] = tmax
@@ -373,9 +370,9 @@ class BTtools:
         arr[xf] = - arr[ x ] + tmax
         arr[xf,-2] = tmax
         for i in range( 24 ):
-            out[i,z] = arr[ k_idx[i,z] ]
-            out[i,y] = arr[ k_idx[i,y] ]
-            out[i,x] = arr[ k_idx[i,x] ]
+            out[i,z] = arr[ K_IDX[i,z] ]
+            out[i,y] = arr[ K_IDX[i,y] ]
+            out[i,x] = arr[ K_IDX[i,x] ]
             
     @staticmethod
     def shift(prop,targetTcoords,targetBound,coords,bound,rot,offset,targetOffset,shft=[0,0,0],axis=0):
