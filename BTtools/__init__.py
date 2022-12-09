@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.65')
+        print('Burrtools Tools v6.66')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -410,7 +410,7 @@ class BTtools:
                 coords=np.zeros( ( 6, voxelCount ), np.int32 )
                 coords[0:3,:]=shapeCoords[:,:]
                 out=np.zeros( ( 3, voxelCount ), np.int32 )
-                rotate(coords,out,pos[rot])
+                BTtools.rotate(coords,out,pos[rot])
                 coords=out
                 #coords[Z]+=pos[z]
                 #coords[Y]+=pos[y]
