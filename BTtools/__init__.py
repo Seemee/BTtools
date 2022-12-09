@@ -19,7 +19,7 @@ if IN_COLAB:
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.63')
+        print('Burrtools Tools v6.64')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -395,31 +395,31 @@ class BTtools:
             newCoords[axis]+=1
             coords=newCoords
 
-def getSolutionCoords(self,solution):
-    shapeNumbers=BTtools.getShapeIndices(problem)
-    btPosList=np.array(re.findall(r'x|(-?\d+ -?\d+ -?\d+ -?\d+)', solution.assembly.text))
-    x,y,z,rot=0,1,2,3
-    coordDict={}
-    for shapeIndex,btPos in enumerate(btPosList):
-        if btPos!='':
-            pos=list(map(int, btPos.split()))
-            shapeNo=shapeNumbers[shapeIndex]
-            shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
-            shapeCoords=self.getAllCoordinates(shapeArr)
-            voxelCount=len(shapeCoords[0])
-            coords=np.zeros( ( 6, voxelCount ), np.int32 )
-            coords[0:3,:]=shapeCoords[:,:]
-            out=np.zeros( ( 3, voxelCount ), np.int32 )
-            rotate(coords,out,pos[rot])
-            coords=out
-            #coords[Z]+=pos[z]
-            #coords[Y]+=pos[y]
-            #coords[X]+=pos[x]
-            #coords = coords [ :, coords[2].argsort() ]
-            #coords = coords [ :, coords[1].argsort( kind = 'mergesort' ) ]
-            #coords = coords [ :, coords[0].argsort( kind = 'mergesort' ) ]
-            coordDict[shapeIndex]={'coords':coords.T,'offset':np.array([pos[z],pos[y],pos[x]])}
-    return coordDict
+    def getSolutionCoords(self,solution):
+        shapeNumbers=BTtools.getShapeIndices(problem)
+        btPosList=np.array(re.findall(r'x|(-?\d+ -?\d+ -?\d+ -?\d+)', solution.assembly.text))
+        x,y,z,rot=0,1,2,3
+        coordDict={}
+        for shapeIndex,btPos in enumerate(btPosList):
+            if btPos!='':
+                pos=list(map(int, btPos.split()))
+                shapeNo=shapeNumbers[shapeIndex]
+                shapeArr=self.getArray(self.obj.shapes.voxel[shapeNo-1])
+                shapeCoords=self.getAllCoordinates(shapeArr)
+                voxelCount=len(shapeCoords[0])
+                coords=np.zeros( ( 6, voxelCount ), np.int32 )
+                coords[0:3,:]=shapeCoords[:,:]
+                out=np.zeros( ( 3, voxelCount ), np.int32 )
+                rotate(coords,out,pos[rot])
+                coords=out
+                #coords[Z]+=pos[z]
+                #coords[Y]+=pos[y]
+                #coords[X]+=pos[x]
+                #coords = coords [ :, coords[2].argsort() ]
+                #coords = coords [ :, coords[1].argsort( kind = 'mergesort' ) ]
+                #coords = coords [ :, coords[0].argsort( kind = 'mergesort' ) ]
+                coordDict[shapeIndex]={'coords':coords.T,'offset':np.array([pos[z],pos[y],pos[x]])}
+        return coordDict
 
     def getPropositions(self,shapesSelect,target,shift=True,rotations=range(24)):
         propositions={}
