@@ -1,7 +1,3 @@
-Z,Y,X=0,1,2
-#                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
-K_IDX = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )
-
 #from IPython.core.display import display, HTML
 #import exactcover
 import gzip
@@ -19,10 +15,15 @@ IN_COLAB = 'google.colab' in sys.modules
 files=None
 if IN_COLAB:
     from google.colab import files
+
+Z,Y,X=0,1,2
+#                    0          1          2          3          4          5          6          7          8          9          10         11         12         13         14         15         16         17         18         19         20         21         22         23     
+K_IDX = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3, 4], [2, 4, 0], [2, 0, 1], [3, 1, 5], [4, 3, 5], [0, 4, 5], [1, 0, 5], [5, 1, 0], [5, 3, 1], [5, 4, 3], [5, 0, 4], [0, 2, 4], [1, 2, 0], [3, 2, 1], [4, 2, 3], [0, 5, 1], [1, 5, 3], [3, 5, 4], [4, 5, 0]], dtype = np.int8 )    
+
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.67')
+        print('Burrtools Tools v6.68')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
