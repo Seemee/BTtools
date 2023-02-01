@@ -23,7 +23,7 @@ K_IDX = np.array( [ [0, 1, 2], [1, 3, 2], [3, 4, 2], [4, 0, 2], [2, 1, 3], [2, 3
 class BTtools:
     def __init__(self, filename=None):
         global files
-        print('Burrtools Tools v6.68')
+        print('Burrtools Tools v6.69')
         if filename==None:
             puzzle=etree.Element('puzzle')
             puzzle.set('version','2')
@@ -219,6 +219,7 @@ class BTtools:
         voxel=self.obj.shapes.voxel[problemSelect-1]
         identities=self.getIdentities(voxel)
         print('Found %d identities: %s'%(len(identities),', '.join(identities)))
+        identities.sort()
         for no,id in enumerate(identities):
             tmpString=copy.deepcopy(voxel.text)
             for i in identities:
